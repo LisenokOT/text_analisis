@@ -5,18 +5,22 @@ from hunspell import HunSpell
 
 
 class Analysis:
-    def __init__(self):
-        self.spellchecker = HunSpell("hunspell/ru_RU.dic", "hunspell/ru_RU.aff")
+    def __init__(self, args):
+        self.themes_file = args['--themes_file']
+        self.input_file = args['--input_file']
+        self.spellchecker = HunSpell(
+            "hunspell/ru_RU.dic", "hunspell/ru_RU.aff")
+
         self.checkFiles()
-        with open('themes.json') as file:
+        with open(self.themes_file) as file:
             self.themes = json.load(file)
         self.dataOfText = self.read()
 
     def checkFiles(self):
-        if not os.path.exists("input.txt"):
-            os.mknod("input.txt")
-        if not os.path.exists("themes.json") or os.stat("themes.json").st_size == 0:
-            with open("themes.json", "w") as file:
+        if not os.path.exists(self.input_file):
+            os.mknod(self.input_file)
+        if not os.path.exists(self.themes_file) or os.stat(self.themes_file).st_size == 0:
+            with open(self.themes_file, "w", encoding="utf-8") as file:
                 file.write("{}")
 
     def printThemes(self):
@@ -36,10 +40,10 @@ class Analysis:
         temp = self.spellchecker.suggest(theme)
         if len(temp) < 10:
             return "Тема отклонена: не найдены ключевые слова!"
-        
+
         self.themes[theme] = temp
         return "Тема: " + theme + " успешно добавлена!"
-    
+
     def removeTheme(self, theme):
         if self.themes.get(theme) == None:
             return "Тема " + theme + " не существует!"
@@ -58,7 +62,7 @@ class Analysis:
         return dict(zip(list(self.themes.keys()), [str(round(elem * 100 / countsAll)) + "%" for elem in counts]))
 
     def read(self):
-        with open('input.txt', "r", encoding="utf-8") as file:
+        with open(self.input_file, "r", encoding="utf-8") as file:
             r = re.split('[^a-zа-яё]+', file.read(), flags=re.IGNORECASE)
         return {elem: r.count(elem) for elem in r}
 
@@ -71,13 +75,14 @@ class Analysis:
         return answer
 
     def __del__(self):
-        with open('themes.json', "w") as outfile:
+        with open(self.themes_file, "w", encoding="utf-8") as outfile:
             outfile.write(json.dumps(self.themes))
 
 
-def main():
-    data = Analysis()
+def main(args):
+    data = Analysis(args)
     print(data.checkText())
+
 
 if __name__ == "__main__":
     main()

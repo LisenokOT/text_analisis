@@ -1,0 +1,6 @@
+{
+    // Убрать комментарии
+    //"python.linting.pylintEnabled": true,
+    //"python.linting.pydocstyleEnabled": true,
+    //"python.linting.pycodestyleEnabled": true
+}
