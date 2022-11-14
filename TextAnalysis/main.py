@@ -1,7 +1,9 @@
 import os
 import json
 import re
+import requests
 from hunspell import HunSpell
+from bs4 import BeautifulSoup
 
 
 class Analysis:
@@ -31,6 +33,17 @@ class Analysis:
             answer += "  " + str(index + 1) + ") " + str(keys).title() + "\n"
         return answer
 
+    def parseKeyWords(self, theme):
+        page = BeautifulSoup(requests.get("https://www.bukvarix.com/keywords/?q=" + theme).text, "html.parser")
+        info = re.findall('"([\w ]+)"', str(re.findall('"data":([\w \S]+)', str(page))[0]))
+        
+        answer = list()
+        for elem in info:
+            for i in elem.split():
+                if i != theme and i.isnumeric() is False:
+                    answer.append(i)
+        return answer
+
     def addTheme(self, theme):
         if self.themes.get(theme) != None:
             return "Тема " + theme + " уже существует!"
@@ -38,10 +51,10 @@ class Analysis:
         if self.spellchecker.spell(theme) is False:
             return "Тема " + theme + " отклонена: некорректное слово!"
         temp = self.spellchecker.suggest(theme)
-        if len(temp) < 10:
+        if len(temp) < 5:
             return "Тема отклонена: не найдены ключевые слова!"
-
-        self.themes[theme] = temp
+        temp += self.parseKeyWords(theme)
+        self.themes[theme] = list(set(temp))
         return "Тема: " + theme + " успешно добавлена!"
 
     def removeTheme(self, theme):
@@ -59,7 +72,9 @@ class Analysis:
                     temp.append(self.dataOfText.get(elem))
             counts.append(sum(temp))
         countsAll = sum(counts)
-        return dict(zip(list(self.themes.keys()), [str(round(elem * 100 / countsAll)) + "%" for elem in counts]))
+        if countsAll == 0:
+            countsAll = 1
+        return dict(zip(list(self.themes.keys()), [round(elem * 100 / countsAll) for elem in counts]))
 
     def read(self):
         with open(self.input_file, "r", encoding="utf-8") as file:
@@ -68,10 +83,10 @@ class Analysis:
 
     def checkText(self):
         localdata = self.findCoincidences()
-        answer = "Тема текста: " + list(localdata.keys())[0].title() + "\n\n"
+        answer = "\nТема текста: " + max(localdata, key = lambda k : localdata.get(k)).title() + "\n\n"
         answer += "Общая вероятность по всем темам:\n"
         for key, value in localdata.items():
-            answer += "  Тема: " + key.title() + " - " + value + "\n"
+            answer += "  Тема: " + key.title() + " - " + str(value) + "%" + "\n"
         return answer
 
     def __del__(self):
