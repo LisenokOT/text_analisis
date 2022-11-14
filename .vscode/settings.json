@@ -1,4 +1,9 @@
 {
+    "python.testing.pytestArgs": [
+        "TextAnalysis"
+    ],
+    "python.testing.unittestEnabled": false,
+    "python.testing.pytestEnabled": true
     // Убрать комментарии
     //"python.linting.pylintEnabled": true,
     //"python.linting.pydocstyleEnabled": true,

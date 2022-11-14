@@ -35,6 +35,7 @@ setuptools.setup(
     install_requires=[
         'hunspell',
         'docopt',
+        'beautifulsoup4'
     ],
     extras_require={
         'dev': [

@@ -20,9 +20,12 @@ DEFAULT_ARG = {'--themes_file': 'demo_data/themes.json',
 if __name__ == '__main__':
     args = docopt(__doc__, version=__version__)
     # Запуск без параметров
+    args['use_local_files'] = 0 # Флаг использования файлов по умолчанию
     if not (args['--themes_file']):
         args['--themes_file'] = DEFAULT_ARG['--themes_file']
+        args['use_local_files'] += 1
     if not (args['--input_file']):
         args['--input_file'] = DEFAULT_ARG['--input_file']
+        args['use_local_files'] += 2
     # Запуск
     main(args)

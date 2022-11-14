@@ -4,14 +4,30 @@ import re
 import requests
 from hunspell import HunSpell
 from bs4 import BeautifulSoup
+from pkg_resources import resource_filename
+
+
+def pkgfile(path) -> str:
+    """Получить файл пакета"""
+    tpath = resource_filename('TextAnalysis', '../')
+    return os.path.abspath(tpath + path)
 
 
 class Analysis:
     def __init__(self, args):
+        # Пользовательские файлы
         self.themes_file = args['--themes_file']
         self.input_file = args['--input_file']
+        # Флаг использования файлов по умолчанию
+        pkg_files_flag = args['use_local_files']
+        # Не указан файл с темами
+        if pkg_files_flag == 1 or pkg_files_flag == 3:
+            self.themes_file = pkgfile(args['--themes_file'])
+        # Не указан файл с текстом
+        if pkg_files_flag == 2 or pkg_files_flag == 3:
+            self.input_file = pkgfile(args['--input_file'])
         self.spellchecker = HunSpell(
-            "hunspell/ru_RU.dic", "hunspell/ru_RU.aff")
+            pkgfile("hunspell/ru_RU.dic"), pkgfile("hunspell/ru_RU.aff"))
 
         self.checkFiles()
         with open(self.themes_file) as file:
