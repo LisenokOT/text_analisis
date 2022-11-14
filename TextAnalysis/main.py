@@ -34,9 +34,11 @@ class Analysis:
         return answer
 
     def parseKeyWords(self, theme):
-        page = BeautifulSoup(requests.get("https://www.bukvarix.com/keywords/?q=" + theme).text, "html.parser")
-        info = re.findall('"([\w ]+)"', str(re.findall('"data":([\w \S]+)', str(page))[0]))
-        
+        page = BeautifulSoup(requests.get(
+            "https://www.bukvarix.com/keywords/?q=" + theme).text, "html.parser")
+        info = re.findall(
+            '"([\w ]+)"', str(re.findall('"data":([\w \S]+)', str(page))[0]))
+
         answer = list()
         for elem in info:
             for i in elem.split():
@@ -83,7 +85,8 @@ class Analysis:
 
     def checkText(self):
         localdata = self.findCoincidences()
-        answer = "\nТема текста: " + max(localdata, key = lambda k : localdata.get(k)).title() + "\n\n"
+        answer = "\nТема текста: " + \
+            max(localdata, key=lambda k: localdata.get(k)).title() + "\n\n"
         answer += "Общая вероятность по всем темам:\n"
         for key, value in localdata.items():
             answer += "  Тема: " + key.title() + " - " + str(value) + "%" + "\n"

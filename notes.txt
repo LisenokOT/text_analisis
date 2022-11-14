@@ -1,2 +1,2 @@
 # Ubuntu зависимости
-sudo apt-get install libhunspell-dev python3-sphinx python-is-python3 python3-pip
+sudo apt-get install libhunspell-dev python3-sphinx python-is-python3 python3-pip make
