@@ -28,13 +28,13 @@ class Analysis:
             self.input_file = pkgfile(args['--input_file'])
         self.spellchecker = HunSpell(
             pkgfile("hunspell/ru_RU.dic"), pkgfile("hunspell/ru_RU.aff"))
-
         self.checkFiles()
         with open(self.themes_file) as file:
             self.themes = json.load(file)
         self.dataOfText = self.read()
 
     def checkFiles(self):
+        """ Проверяем наличие файлов для ввода текста и для хранения тем """
         if not os.path.exists(self.input_file):
             os.mknod(self.input_file)
         if not os.path.exists(self.themes_file) or os.stat(self.themes_file).st_size == 0:
@@ -42,6 +42,7 @@ class Analysis:
                 file.write("{}")
 
     def printThemes(self):
+        """ Красивый вывод всех тем, что заданы программе """
         if len(self.themes.keys()) == 0:
             return "Список тем пуст!"
         answer = "Темы:\n"
@@ -50,6 +51,7 @@ class Analysis:
         return answer
 
     def parseKeyWords(self, theme):
+        """ Поиск ключевых слов по теме в интернете """
         page = BeautifulSoup(requests.get(
             "https://www.bukvarix.com/keywords/?q=" + theme).text, "html.parser")
         info = re.findall(
@@ -63,6 +65,7 @@ class Analysis:
         return answer
 
     def addTheme(self, theme):
+        """ Добавление темы в программу """
         if self.themes.get(theme) != None:
             return "Тема " + theme + " уже существует!"
 
@@ -76,12 +79,14 @@ class Analysis:
         return "Тема: " + theme + " успешно добавлена!"
 
     def removeTheme(self, theme):
+        """ Удаление темы из программы """
         if self.themes.get(theme) == None:
             return "Тема " + theme + " не существует!"
         self.themes.pop(theme)
         return "Тема: " + theme + " удалена!"
 
     def findCoincidences(self):
+        """ Поиск совпадений текста с темами """
         counts = []
         for arr in self.themes.values():
             temp = []
@@ -95,11 +100,13 @@ class Analysis:
         return dict(zip(list(self.themes.keys()), [round(elem * 100 / countsAll) for elem in counts]))
 
     def read(self):
+        """ Чтение текста из файла """
         with open(self.input_file, "r", encoding="utf-8") as file:
             r = re.split('[^a-zа-яё]+', file.read(), flags=re.IGNORECASE)
         return {elem: r.count(elem) for elem in r}
 
     def checkText(self):
+        """ Вывод информации к какой теме относится текст и с какой вероятностью """
         localdata = self.findCoincidences()
         answer = "\nТема текста: " + \
             max(localdata, key=lambda k: localdata.get(k)).title() + "\n\n"
@@ -109,12 +116,14 @@ class Analysis:
         return answer
 
     def __del__(self):
+        """ В конце работы программы мы осуществляем запись данных из оперативной памяти в файл с темами """
         with open(self.themes_file, "w", encoding="utf-8") as outfile:
             outfile.write(json.dumps(self.themes))
 
 
 def main(args):
     data = Analysis(args)
+    #print(data.printThemes())
     print(data.checkText())
 
 
