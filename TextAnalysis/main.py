@@ -12,7 +12,7 @@ from hunspell import HunSpell  # pylint: disable=no-name-in-module
 
 
 def pkgfile(path) -> str:
-    """Получить файл пакета."""
+    """Получить путь к файлу пакета."""
     tpath = resource_filename('TextAnalysis', '../')
     return os.path.abspath(tpath + path)
 
@@ -20,43 +20,31 @@ def pkgfile(path) -> str:
 class Analysis:
     """Объект приложения."""
 
-    def __init__(self, args):
+    def __init__(self, themeFilePath):
         """Создание объекта."""
-        # Пользовательские файлы
-        self.themesFile = args['--themes_file']
-        self.inputFile = args['--input_file']
-        # Флаг использования файлов по умолчанию
-        pkgFilesFlag = args['use_local_files']
-        # Не указан файл с темами
-        if pkgFilesFlag == 1 or pkgFilesFlag == 3:
-            self.themesFile = pkgfile(args['--themes_file'])
-        # Не указан файл с текстом
-        if pkgFilesFlag == 2 or pkgFilesFlag == 3:
-            self.inputFile = pkgfile(args['--input_file'])
-        # Загрузка словарей
+        self.wordsOccurences = ''
+        # Файл с темами
+        self.themesFile = themeFilePath
+        # Загрузка словаря
         self.spellchecker = HunSpell(
             pkgfile("hunspell/ru_RU.dic"), pkgfile("hunspell/ru_RU.aff"))
-        # Проверка и чтение входных файлов
-        self.checkFiles()
+        # Проверка и чтение файла с темами
+        self.checkThemesFile()
         with open(self.themesFile, encoding="utf-8") as file:
             self.themes = json.load(file)
 
-    def checkFiles(self):
-        """Проверяем наличие файлов для ввода текста и для хранения тем."""
-        # Если не существует файла с текстом
-        if not os.path.exists(self.inputFile):
-            # То выходим
-            print('Файла с текстом не существует')
-            sys.exit()
-        # Если не существует файла с темами...
+    def checkThemesFile(self):
+        """Проверяем файл для хранения тем."""
+        # Если не существует файла с темами или пустой...
         if not os.path.exists(self.themesFile) or \
                 os.stat(self.themesFile).st_size == 0:
-            # То создаем пустой
+            # То записываем {}
             with open(self.themesFile, "w", encoding="utf-8") as file:
                 file.write("{}")
+        return 0
 
     def getThemesFormatted(self):
-        """Красивый вывод всех тем, что заданы программе."""
+        """Красивый вывод всех тем."""
         if len(self.themes.keys()) == 0:
             return "Список тем пуст!"
         answer = "Темы:\n"
@@ -87,28 +75,63 @@ class Analysis:
     def addTheme(self, theme):
         """Добавление темы в программу."""
         if self.themes.get(theme) is not None:
-            return "Тема " + theme + " уже существует!"
+            print("Тема " + theme + " уже существует!")
+            return 1
 
         if self.spellchecker.spell(theme) is False:
-            return "Тема " + theme + " отклонена: некорректное слово!"
+            print("Тема " + theme + " отклонена: некорректное слово!")
+            return 2
         temp = self.spellchecker.suggest(theme)
         if len(temp) < 5:
-            return "Тема отклонена: не найдены ключевые слова!"
+            print("Тема отклонена: не найдены ключевые слова!")
+            return 2
         temp += self.parseKeyWords(theme)
         self.themes[theme] = list(set(temp))
-        return "Тема: " + theme + " успешно добавлена!"
+        print("Тема " + theme + " успешно добавлена!")
+        return 0
 
     def removeTheme(self, theme):
         """Удаление темы из программы."""
+        # Если нет темы
         if self.themes.get(theme) is None:
-            return "Тема " + theme + " не существует!"
+            print("Тема " + theme + " не существует!")
+            return 1
         self.themes.pop(theme)
-        return "Тема: " + theme + " удалена!"
+        print("Тема " + theme + " удалена!")
+        return 0
+
+    def parseStringText(self, text):
+        """Разделение текста на слова и сохранение частоты появления."""
+        # Разделение слов в тексте
+        words = re.split('[^a-zа-яё]+', text, flags=re.IGNORECASE)
+        self.wordsOccurences = self.countWordsFromText(words)
+        return 0
+
+    def parseTextFile(self, inputFile):
+        """Получение текста из файла."""
+        with open(inputFile, "r", encoding="utf-8") as file:
+            self.parseStringText(file.read())
+        return 0
+
+    def countWordsFromText(self, words):
+        """Подсчет слов в тексте."""
+        # Стемминг (забираем слово и добавляем его основу - стем)
+        wordsLen = len(words)
+        for i in range(wordsLen):  # pylint: disable=unused-variable
+            word = words.pop(0)
+            stems = self.spellchecker.stem(word)
+            # if stems: words +=  list(map(lambda x: x.decode('utf-8'), stems))
+            # Добавляем один стем чтобы не удваивать вероятность
+            if isinstance(stems, list) and stems:
+                words += [stems[0].decode('utf-8')]
+            elif isinstance(stems, str) and stems:
+                words += [stems.decode('utf-8')]
+        # Подсчет кол-ва слов
+        return {elem: words.count(elem) for elem in words}
 
     def findCoincidences(self):
-        """Поиск совпадений текста с темами."""
-        # Подсчет слов
-        wordsOccurences = self.countWordsFromText()
+        """Поиск совпадений текста с ключевыми словами тем."""
+        wordsOccurences = self.wordsOccurences
         counts = []  # Счетчик слов для каждой темы
 
         # Проходим по ключевым словам тем
@@ -126,25 +149,6 @@ class Analysis:
                         [round(themeCount / 100 * countsAll)
                          for themeCount in counts]))
 
-    def countWordsFromText(self):
-        """Чтение текста из файла и подсчет слов в нем."""
-        with open(self.inputFile, "r", encoding="utf-8") as file:
-            # Разделение слов в тексте
-            words = re.split('[^a-zа-яё]+', file.read(), flags=re.IGNORECASE)
-        # Стемминг (забираем слово и добавляем его основы)
-        wordsLen = len(words)
-        for i in range(wordsLen):  # pylint: disable=unused-variable
-            word = words.pop(0)
-            stems = self.spellchecker.stem(word)
-            # if stems: words +=  list(map(lambda x: x.decode('utf-8'), stems))
-            # Добавляем один стем чтобы не удваивать вероятность
-            if isinstance(stems, list) and stems:
-                words += [stems[0].decode('utf-8')]
-            elif isinstance(stems, str) and stems:
-                words += [stems.decode('utf-8')]
-        # Подсчет кол-ва слов
-        return {elem: words.count(elem) for elem in words}
-
     def checkText(self):
         """
         Проверка текста.
@@ -160,7 +164,8 @@ class Analysis:
         answer += "Общая вероятность по всем темам:\n"
         for key, value in localdata.items():
             answer += "Тема: " + key.title() + " - " + str(value) + "%" + "\n"
-        return answer
+        print(answer)
+        return 0
 
     def __del__(self):
         """Сохранить данные из оперативной памяти в файл тем в конце работы."""
@@ -170,10 +175,44 @@ class Analysis:
 
 
 def main(args):
-    """Основа приложения."""
-    obj = Analysis(args)
-    # print(object.getThemesFormatted())
-    print(obj.checkText())
+    """Основа приложения. Определяет режим работы."""
+    # Флаг использования файлов по умолчанию
+    pkgFilesFlag = args['use_local_files']
+    # Если не указан файл с темами то используем встроенный
+    if pkgFilesFlag == 1 or pkgFilesFlag == 3:
+        args['--themes_file'] = pkgfile(args['--themes_file'])
+
+    # Объект приложения
+    obj = Analysis(args['--themes_file'])
+
+    # Добавление темы
+    if args['add']:
+        obj.addTheme(args['<theme>'])
+
+    # Удаление темы
+    elif args['remove']:
+        obj.removeTheme(args['<theme>'])
+
+    # Вывод списка тем
+    elif args['list']:
+        print(obj.getThemesFormatted())
+
+    # Обработка текста
+    elif args['text']:
+        obj.parseStringText(args['<text>'])
+        obj.checkText()
+
+    # Обработка файла
+    else:
+        # Если не указан файл с текстом то используем пример
+        if pkgFilesFlag == 2 or pkgFilesFlag == 3:
+            args['--input_file'] = pkgfile(args['--input_file'])
+        # Если не существует файла с текстом то выходим
+        elif not os.path.exists(args['--input_file']):
+            print('Файла с текстом не существует')
+            sys.exit()
+        obj.parseTextFile(args['--input_file'])
+        obj.checkText()
 
 
 if __name__ == "__main__":
