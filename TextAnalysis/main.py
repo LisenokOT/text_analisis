@@ -3,6 +3,7 @@ import json
 import os
 import re
 import sys
+from time import sleep
 
 import requests
 from bs4 import BeautifulSoup
@@ -55,6 +56,8 @@ class Analysis:
 
     def parseKeyWords(self, theme):
         """Поиск ключевых слов по теме в интернете."""
+        theme = theme.lower()
+        # Получение содержимого сайта
         page = BeautifulSoup(
             requests.get(
                 "https://www.bukvarix.com/keywords/?q=" + theme,
@@ -62,15 +65,45 @@ class Analysis:
             .text,
             "html.parser"
         )
-        info = re.findall(
-            r'"([\w ]+)"', str(re.findall(r'"data":([\w \S]+)', str(page))[0]))
+        # Получение ключевых слов
+        try:
+            rawKeyWords = re.findall(
+                r'"([\w ]+)"', str(re.findall(r'"data":([\w \S]+)', str(page))[0]))
+        except IndexError:
+            print('Не удалось получить слова. Ожидание 3 секунды')
+            sleep(3)
+            return self.parseKeyWords(theme)
+        # Обработка ключевых слов
+        keyWords = []
+        for elem in rawKeyWords:
+            for word in elem.split(' '):
+                word = word.lower()
+                if word != theme and not any(char.isdigit() for char in word):
+                    keyWords.append(word)
+        return keyWords
 
-        answer = []
-        for elem in info:
-            for i in elem.split():
-                if i != theme and i.isnumeric() is False:
-                    answer.append(i)
-        return answer
+    def keyWordsArrayWorker(self, array):
+        """Работа со списком ключевых слов.
+
+        Добавляет стемы, убирает повторы и сортирует список.
+        """
+        # Убираем повторы
+        array = list(set(array))
+        # Добавляем стемы для каждого слова
+        arrayLength = len(array)
+        for i in range(arrayLength):  # pylint: disable=unused-variable
+            word = array.pop(0)
+            stems = self.spellchecker.stem(word)
+            if stems:
+                array += list(map(lambda x: x.decode('utf-8'), stems))
+            else:
+                # У слова нет стема, возвращаем его в список
+                array += [word]
+        # Убираем повторы
+        array = list(set(array))
+        # Сортируем
+        array.sort()
+        return array
 
     def addTheme(self, theme):
         """Добавление темы в программу."""
@@ -82,16 +115,17 @@ class Analysis:
         if self.spellchecker.spell(theme) is False:
             print("Тема " + theme + " отклонена: некорректное слово!")
             return 2
-        temp = self.spellchecker.suggest(theme)
 
-        # Недостаточно ключевых слов
-        if len(temp) < 5:
+        # Название темы в качестве ключевых слов
+        themeVariations = self.spellchecker.suggest(theme)
+        # Тема узконаправленная
+        if len(themeVariations) < 5:
             print("Тема отклонена: не найдены ключевые слова!")
             return 2
-        # Получить ключевые слова
-        temp += self.parseKeyWords(theme)
+
         # Убрать дубликаты
-        self.themes[theme] = list(set(temp))
+        self.themes[theme] = self.keyWordsArrayWorker(
+            self.parseKeyWords(theme) + themeVariations)
         self.saveThemes()
         print("Тема " + theme + " успешно добавлена!")
         return 0
@@ -153,16 +187,16 @@ class Analysis:
 
         countsAll = sum(counts)  # Всего слов которые нашлись в темах
         # Возврат: тема - процент слов
-        return dict(zip(list(self.themes.keys()),
-                        [round(themeCount / 100 * countsAll)
-                         for themeCount in counts]))
+        themesList = list(self.themes.keys())
+        result = {themesList[i]: round(counts[i] / countsAll * 100, 2)
+                  for i in range(len(themesList))}
+        return result
 
     def checkText(self):
-        """
-        Проверка текста.
+        """Проверка текста.
 
-        Запуск алгоритма а затем вывод информации к какой теме относится текст
-        и с какой вероятностью.
+        Запуск алгоритма, а затем вывод информации к какой теме
+        относится текст и с какой вероятностью.
         """
         # Алгоритм
         localdata = self.findCoincidences()
@@ -183,15 +217,20 @@ class Analysis:
 
 
 def main(args):
-    """Основа приложения. Определяет режим работы."""
+    """Основа приложения.
+
+    Определяет режим работы.
+    """
     # Флаг использования файлов по умолчанию
     pkgFilesFlag = args['use_local_files']
     # Если не указан файл с темами то используем встроенный
     if pkgFilesFlag in (1, 3):
-        args['--themes_file'] = pkgfile(args['--themes_file'])
+        themesFile = pkgfile(args['--themes_file'])
+    else:
+        themesFile = args['--themes_file']
 
     # Объект приложения
-    obj = Analysis(args['--themes_file'])
+    obj = Analysis(themesFile)
 
     # Добавление темы
     if args['add']:
@@ -214,12 +253,14 @@ def main(args):
     else:
         # Если не указан файл с текстом то используем пример
         if pkgFilesFlag in (2, 3):
-            args['--input_file'] = pkgfile(args['--input_file'])
+            inputFile = pkgfile(args['--input_file'])
+        else:
+            inputFile = args['--input_file']
         # Если не существует файла с текстом то выходим
-        elif not os.path.exists(args['--input_file']):
+        if not os.path.exists(inputFile):
             print('Файла с текстом не существует')
             sys.exit()
-        obj.parseTextFile(args['--input_file'])
+        obj.parseTextFile(inputFile)
         return obj.checkText()
     return 0
 

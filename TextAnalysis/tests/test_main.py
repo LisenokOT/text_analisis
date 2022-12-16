@@ -28,6 +28,18 @@ def userdata():
     }
 
 
+def testGenerateThemesList(userdata):
+    """Добавление своих тем."""
+    with open('./demo_data/test_themes.json', "w", encoding="utf-8") as file:
+        file.write('{}')
+    themes = ('Математика', 'Физика', 'Физкультура', 'Биология', 'Футбол',
+              'Осень', 'Природа', 'Война')
+    userdata['add'] = True
+    for theme in themes:
+        userdata['<theme>'] = theme
+        assert main(userdata) == 0
+
+
 def testRunDefault(userdata):
     """Запуск без параметров."""
     result = main(userdata)
@@ -47,7 +59,7 @@ def testRunWithString(userdata):
 def testAddTheme(userdata):
     """Добавление своей темы."""
     userdata['add'] = True
-    userdata['<theme>'] = 'Зима'
+    userdata['<theme>'] = "Зима"
     assert main(userdata) == 0
 
 
@@ -59,6 +71,9 @@ def testDeleteTheme(userdata):
 
 
 def testListThemes(userdata):
-    """Вывод списка тем. Для отображения запускать в дебаге."""
+    """Вывод списка тем.
+
+    Для отображения запускать в дебаге.
+    """
     userdata['list'] = True
     assert main(userdata) == 0
