@@ -1,13 +1,21 @@
 fail_fast: true
 repos:
--   repo: https://gitlab.com/bmares/check-json5
-    rev: v1.0.0
+-   repo: local
     hooks:
-        - id: check-json5
+    -   id: pytest-check
+        name: pytest-check
+        entry: pytest
+        language: system
+        pass_filenames: false
+        always_run: false
+-   repo: https://github.com/PyCQA/docformatter
+    rev: v1.5.1
+    hooks:
+    -   id: docformatter
 -   repo: https://github.com/pycqa/isort
     rev: 5.11.2
     hooks:
-      - id: isort # Sort imports
+    -   id: isort # Sort imports
         name: isort (python)
 -   repo: https://github.com/pre-commit/pre-commit-hooks
     rev: v2.3.0
@@ -30,11 +38,3 @@ repos:
         language: system
         types: [python]
         args: ["--rcfile=.vscode/pylint.rc"]
--   repo: local
-    hooks:
-    -   id: pytest-check
-        name: pytest-check
-        entry: pytest
-        language: system
-        pass_filenames: false
-        always_run: false

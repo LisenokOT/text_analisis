@@ -9,6 +9,5 @@
     ],
     // Оформление кода, чтобы скрыть нужно закомментировать эти строки
     "python.linting.pylintEnabled": true,
-    "python.linting.pydocstyleEnabled": true,
     //
 }
