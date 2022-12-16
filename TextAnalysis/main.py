@@ -123,7 +123,7 @@ class Analysis:
 
 def main(args):
     data = Analysis(args)
-    #print(data.printThemes())
+    # print(data.printThemes())
     print(data.checkText())
 
 

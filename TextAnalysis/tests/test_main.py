@@ -8,5 +8,6 @@ def userdata():
     """ Входные параметры пользователя """
     return DEFAULT_ARG
 
+
 def test_runDefault(userdata):
     main(userdata)
