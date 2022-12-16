@@ -116,16 +116,9 @@ class Analysis:
             print("Тема " + theme + " отклонена: некорректное слово!")
             return 2
 
-        # Название темы в качестве ключевых слов
-        themeVariations = self.spellchecker.suggest(theme)
-        # Тема узконаправленная
-        if len(themeVariations) < 5:
-            print("Тема отклонена: не найдены ключевые слова!")
-            return 2
-
         # Убрать дубликаты
         self.themes[theme] = self.keyWordsArrayWorker(
-            self.parseKeyWords(theme) + themeVariations)
+            self.parseKeyWords(theme) + [theme])
         self.saveThemes()
         print("Тема " + theme + " успешно добавлена!")
         return 0
@@ -166,8 +159,9 @@ class Analysis:
             # Добавляем один стем чтобы не удваивать вероятность
             if isinstance(stems, list) and stems:
                 words += [stems[0].decode('utf-8')]
-            elif isinstance(stems, str) and stems:
-                words += [stems.decode('utf-8')]
+            else:
+                # У слова нет стема, возвращаем его в список
+                words += [word]
         # Подсчет кол-ва слов
         return {elem: words.count(elem) for elem in words}
 
