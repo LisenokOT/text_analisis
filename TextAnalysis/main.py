@@ -13,8 +13,8 @@ from hunspell import HunSpell  # pylint: disable=no-name-in-module
 
 def pkgfile(path) -> str:
     """Получить путь к файлу пакета."""
-    tpath = resource_filename('TextAnalysis', '../')
-    return os.path.abspath(tpath + path)
+    tpath = resource_filename('TextAnalysis', '')
+    return os.path.abspath(tpath + '/../' + path)
 
 
 class Analysis:
@@ -78,15 +78,21 @@ class Analysis:
             print("Тема " + theme + " уже существует!")
             return 1
 
+        # Нарушена грамматика названия темы
         if self.spellchecker.spell(theme) is False:
             print("Тема " + theme + " отклонена: некорректное слово!")
             return 2
         temp = self.spellchecker.suggest(theme)
+
+        # Недостаточно ключевых слов
         if len(temp) < 5:
             print("Тема отклонена: не найдены ключевые слова!")
             return 2
+        # Получить ключевые слова
         temp += self.parseKeyWords(theme)
+        # Убрать дубликаты
         self.themes[theme] = list(set(temp))
+        self.saveThemes()
         print("Тема " + theme + " успешно добавлена!")
         return 0
 
@@ -96,7 +102,9 @@ class Analysis:
         if self.themes.get(theme) is None:
             print("Тема " + theme + " не существует!")
             return 1
+        # Убираем тему
         self.themes.pop(theme)
+        self.saveThemes()
         print("Тема " + theme + " удалена!")
         return 0
 
@@ -159,15 +167,15 @@ class Analysis:
         # Алгоритм
         localdata = self.findCoincidences()
         # Вывод
-        answer = "\nТема текста: " + \
-            max(localdata, key=localdata.get).title() + "\n\n"
+        textTheme = max(localdata, key=localdata.get).title()
+        answer = "\nТема текста: " + textTheme + "\n\n"
         answer += "Общая вероятность по всем темам:\n"
         for key, value in localdata.items():
             answer += "Тема: " + key.title() + " - " + str(value) + "%" + "\n"
         print(answer)
-        return 0
+        return textTheme
 
-    def __del__(self):
+    def saveThemes(self):
         """Сохранить данные из оперативной памяти в файл тем в конце работы."""
         with open(self.themesFile, "w", encoding="utf-8") as themeFile:
             text = json.dumps(self.themes, ensure_ascii=False)
@@ -200,7 +208,7 @@ def main(args):
     # Обработка текста
     elif args['text']:
         obj.parseStringText(args['<text>'])
-        obj.checkText()
+        return obj.checkText()
 
     # Обработка файла
     else:
@@ -212,7 +220,8 @@ def main(args):
             print('Файла с текстом не существует')
             sys.exit()
         obj.parseTextFile(args['--input_file'])
-        obj.checkText()
+        return obj.checkText()
+    return 0
 
 
 if __name__ == "__main__":
