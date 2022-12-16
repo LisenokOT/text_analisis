@@ -40,7 +40,7 @@ dev:
 remove:
 	@pip uninstall TextAnalysis
 
-# Форматирование кода
+# Форматирование кода (устарело)
 pep8:
 	@pip install autopep8
 	@python -m autopep8 --in-place --recursive ./TextAnalysis
@@ -53,3 +53,8 @@ run:
 # Тестирование
 test:
 	@python -m pytest -s ./TextAnalysis/tests/test_$(p)
+
+# Пре-коммит
+# pre-commit install
+pre:
+	@pre-commit run --all-files

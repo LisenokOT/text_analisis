@@ -40,6 +40,7 @@ setuptools.setup(
     extras_require={
         'dev': [
             'setuptools',
+            'pre-commit',
             'pytest',
             'autopep8',
             'pydocstyle',

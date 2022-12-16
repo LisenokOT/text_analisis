@@ -2,6 +2,7 @@
 # pylint: disable=redefined-outer-name
 """Файл тестов приложения."""
 import pytest
+
 from TextAnalysis.main import main
 
 # Сброс файла тем для тестов

@@ -1,8 +1,8 @@
 """Основной файл программы."""
 import json
 import os
-import sys
 import re
+import sys
 
 import requests
 from bs4 import BeautifulSoup
@@ -65,7 +65,7 @@ class Analysis:
         info = re.findall(
             r'"([\w ]+)"', str(re.findall(r'"data":([\w \S]+)', str(page))[0]))
 
-        answer = list()
+        answer = []
         for elem in info:
             for i in elem.split():
                 if i != theme and i.isnumeric() is False:
@@ -187,7 +187,7 @@ def main(args):
     # Флаг использования файлов по умолчанию
     pkgFilesFlag = args['use_local_files']
     # Если не указан файл с темами то используем встроенный
-    if pkgFilesFlag == 1 or pkgFilesFlag == 3:
+    if pkgFilesFlag in (1, 3):
         args['--themes_file'] = pkgfile(args['--themes_file'])
 
     # Объект приложения
@@ -213,7 +213,7 @@ def main(args):
     # Обработка файла
     else:
         # Если не указан файл с текстом то используем пример
-        if pkgFilesFlag == 2 or pkgFilesFlag == 3:
+        if pkgFilesFlag in (2, 3):
             args['--input_file'] = pkgfile(args['--input_file'])
         # Если не существует файла с текстом то выходим
         elif not os.path.exists(args['--input_file']):
