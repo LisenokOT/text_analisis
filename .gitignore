@@ -191,6 +191,7 @@ cython_debug/
 
 ### VisualStudioCode ###
 .vscode/*
+!.vscode/pylint.rc
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json

@@ -3,9 +3,12 @@
         "TextAnalysis"
     ],
     "python.testing.unittestEnabled": false,
-    "python.testing.pytestEnabled": true
+    "python.testing.pytestEnabled": true,
     // Убрать комментарии
-    //"python.linting.pylintEnabled": true,
-    //"python.linting.pydocstyleEnabled": true,
-    //"python.linting.pycodestyleEnabled": true
+    "python.linting.pylintEnabled": true,
+    "python.linting.pydocstyleEnabled": true,
+    "python.linting.pycodestyleEnabled": true,
+    "python.linting.pylintArgs": [
+        "--rcfile=./.vscode/pylint.rc"
+    ]
 }

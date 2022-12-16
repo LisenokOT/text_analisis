@@ -6,8 +6,8 @@ Usage:
     TextAnalysis (-h|--help|--version)
 
 Options:
-    -i --input_file=<path>        Файл с текстом
-    -t --themes_file=<path>        Файл с темами
+    -i --input_file=<path>    Путь файла с текстом
+    -t --themes_file=<path>   Путь файла с темами
 """
 from docopt import docopt
 
