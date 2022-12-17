@@ -52,7 +52,7 @@ run:
 
 # Тестирование
 test:
-	@python -m pytest -s ./TextAnalysis/tests/test_$(p)
+	@python -m pytest -s ./TextAnalysis/tests/test_main.py::test$(f)
 
 # Пре-коммит
 # pre-commit install

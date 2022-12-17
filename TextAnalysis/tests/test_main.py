@@ -1,9 +1,17 @@
 # pylint: disable=invalid-name
 # pylint: disable=redefined-outer-name
 """Файл тестов приложения."""
+import cProfile
+import logging
+import pstats
+
 import pytest
 
 from TextAnalysis.main import main
+
+# Логирование дебаг сообщений
+log = logging.getLogger('log')
+log.setLevel(logging.DEBUG)
 
 # Сброс файла тем для тестов
 with open('./demo_data/default_themes.json', "r", encoding="utf-8") as file:
@@ -28,6 +36,19 @@ def userdata():
     }
 
 
+def profile(function, *args):
+    """Профилирование функции и возврат результата."""
+    pr = cProfile.Profile()
+    pr.enable()
+    result = function(*args)
+    pr.disable()
+    stats = pstats.Stats(pr)
+    # stats.strip_dirs()
+    stats.sort_stats('tottime')
+    stats.print_stats(10)
+    return result
+
+
 def testGenerateThemesList(userdata):
     """Добавление своих тем."""
     with open('./demo_data/test_themes.json', "w", encoding="utf-8") as file:
@@ -42,7 +63,7 @@ def testGenerateThemesList(userdata):
 
 def testRunDefault(userdata):
     """Запуск без параметров."""
-    result = main(userdata)
+    result = profile(main, userdata)
     assert result
     print("Тема: ", result)
 
@@ -51,7 +72,7 @@ def testRunWithString(userdata):
     """Проверка темы своего текста."""
     userdata['text'] = True
     userdata['<text>'] = 'Математика — мой любимый школьный предмет с первого класса. Мне нравится решать примеры и задачи, находить ответы на логические вопросы.'  # pylint: disable=line-too-long
-    result = main(userdata)
+    result = profile(main, userdata)
     assert result
     print("Тема: ", result)
 
@@ -60,14 +81,14 @@ def testAddTheme(userdata):
     """Добавление своей темы."""
     userdata['add'] = True
     userdata['<theme>'] = "Зима"
-    assert main(userdata) == 0
+    assert profile(main, userdata) == 0
 
 
 def testDeleteTheme(userdata):
     """Удаление своей темы."""
     userdata['remove'] = True
     userdata['<theme>'] = 'Зима'
-    assert main(userdata) == 0
+    assert profile(main, userdata) == 0
 
 
 def testListThemes(userdata):
@@ -76,4 +97,4 @@ def testListThemes(userdata):
     Для отображения запускать в дебаге.
     """
     userdata['list'] = True
-    assert main(userdata) == 0
+    assert profile(main, userdata) == 0
