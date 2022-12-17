@@ -31,7 +31,19 @@ logFile.setFormatter(logFormat)
 log.addHandler(logFile)
 
 
-class Analysis:
+class Singleton(type):
+    """Метакласс обеспечивающий создание единственного экземпляра объекта."""
+    _instances = {}
+
+    def __call__(cls, *args, **kwargs):
+        """Работа метакласса."""
+        if cls not in cls._instances:
+            cls._instances[cls] = super(
+                Singleton, cls).__call__(*args, **kwargs)
+        return cls._instances[cls]
+
+
+class Analysis(metaclass=Singleton):
     """Объект приложения."""
 
     def __init__(self, themeFilePath):
