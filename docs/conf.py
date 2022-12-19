@@ -13,7 +13,7 @@ import sys
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 #
-from TextAnalysis.__init__ import __version__
+__version__ = '1.0.0'
 
 sys.path.insert(0, os.path.abspath('../TextAnalysis'))
 
