@@ -11,7 +11,7 @@ jobs:
           pip install sphinx sphinx_rtd_theme
       - name: Sphinx build
         run: |
-          pip install -e .
+          pip install -e . --no-deps
           rm -f ./docs/TextAnalysis.rst
           sphinx-apidoc -o ./docs/ ./TextAnalysis/
           sphinx-build -b html docs _build
