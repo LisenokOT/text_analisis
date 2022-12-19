@@ -9,9 +9,14 @@ jobs:
       - name: Install dependencies
         run: |
           pip install sphinx sphinx_rtd_theme
+      - name: Install Hunspell for package
+        uses: awalsh128/cache-apt-pkgs-action@latest
+        with:
+          packages: libhunspell-dev
+          version: 1.0
       - name: Sphinx build
         run: |
-          pip install -e . --no-deps
+          pip install -e .
           rm -f ./docs/TextAnalysis.rst
           sphinx-apidoc -o ./docs/ ./TextAnalysis/
           sphinx-build -b html docs _build
