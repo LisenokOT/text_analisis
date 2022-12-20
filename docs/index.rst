@@ -8,12 +8,10 @@ TextAnalysis
 
 .. include:: tz.rst
 
-* :ref:`genindex`
-
 .. toctree::
    :maxdepth: 3
    :caption: Структура пакета:
 
    modules
 
-**Тут содержится документация**
+* :ref:`genindex`
