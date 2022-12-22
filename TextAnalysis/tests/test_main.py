@@ -13,6 +13,14 @@ from TextAnalysis.main import main
 log = logging.getLogger('log')
 log.setLevel(logging.DEBUG)
 
+# Отключить логирование для более строгого профилирования
+# Скрывает:
+# method 'flush' of '_io.TextIOWrapper'
+# logging/__init__.py:283
+#
+# log.setLevel(logging.CRITICAL)
+#
+
 # Сброс файла тем для тестов
 with open('./demo_data/default_themes.json', "r", encoding="utf-8") as file:
     text = file.read()

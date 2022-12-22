@@ -4,6 +4,7 @@ import logging
 import os
 import re
 import sys
+from collections import Counter
 from time import sleep
 
 import requests
@@ -148,7 +149,7 @@ class Analysis(metaclass=Singleton):
         array = list(set(array))
         # Сортируем
         array.sort()
-        log.debug('Finished modifying array')
+        log.debug(f"Final array length: {len(array)}")
         return array
 
     def addTheme(self, theme):
@@ -166,7 +167,7 @@ class Analysis(metaclass=Singleton):
             return 2
 
         # Убрать дубликаты
-        log.warning('Getting key words for theme')
+        log.info('Getting key words for theme')
         self.themes[theme] = self.keyWordsArrayWorker(
             self.parseKeyWords(theme) + [theme])
         self.saveThemes()
@@ -221,7 +222,7 @@ class Analysis(metaclass=Singleton):
                 words += [word]
         # Подсчет кол-ва слов
         log.debug(f"Words array lenght: {wordsLen}")
-        return {elem: words.count(elem) for elem in words}
+        return Counter(words)
 
     def findCoincidences(self):
         """Поиск совпадений текста с ключевыми словами тем."""
@@ -235,8 +236,9 @@ class Analysis(metaclass=Singleton):
             themeCount = []  # Счетчик слов темы
             for word in keyWords:
                 # Слово из текста есть в ключевых словах
-                if wordsOccurences.get(word) is not None:
-                    themeCount.append(wordsOccurences.get(word))
+                wordCount = wordsOccurences.get(word)
+                if wordCount is not None:
+                    themeCount.append(wordCount)
             counts.append(sum(themeCount))
             log.debug(
                 f"Matching occurences for theme {list(self.themes.keys())[len(counts) - 1]}" +
