@@ -1,21 +1,13 @@
 TextAnalysis package
 ====================
 
-Submodules
-----------
+Модули программы
+------------------------
 
-TextAnalysis.main module
+Модуль main
 ------------------------
 
 .. automodule:: TextAnalysis.main
-   :members:
-   :undoc-members:
-   :show-inheritance:
-
-Module contents
----------------
-
-.. automodule:: TextAnalysis
    :members:
    :undoc-members:
    :show-inheritance:

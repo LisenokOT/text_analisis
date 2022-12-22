@@ -7,7 +7,7 @@ import pstats
 
 import pytest
 
-from TextAnalysis.main import main
+from TextAnalysis.main import main, pkgfile
 
 # Логирование дебаг сообщений
 log = logging.getLogger('log')
@@ -22,9 +22,9 @@ log.setLevel(logging.DEBUG)
 #
 
 # Сброс файла тем для тестов
-with open('./demo_data/default_themes.json', "r", encoding="utf-8") as file:
+with open(pkgfile('demo_data/default_themes.json'), "r", encoding="utf-8") as file:
     text = file.read()
-with open('./demo_data/test_themes.json', "w", encoding="utf-8") as file:
+with open(pkgfile('demo_data/test_themes.json'), "w", encoding="utf-8") as file:
     file.write(text)
 
 
@@ -59,7 +59,7 @@ def profile(function, *args):
 
 def testGenerateThemesList(userdata):
     """Добавление своих тем."""
-    with open('./demo_data/test_themes.json', "w", encoding="utf-8") as file:
+    with open(pkgfile('demo_data/test_themes.json'), "w", encoding="utf-8") as file:
         file.write('{}')
     themes = ('Математика', 'Физика', 'Физкультура', 'Биология', 'Футбол',
               'Осень', 'Природа', 'Война')

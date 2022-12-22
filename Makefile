@@ -1,10 +1,13 @@
-## MAKEFILE #############################################
-# Полезные команды:
+## MAKEFILE #####################################################
+# Команды:
 # make dev 						- Установка DEV версии
 # make run p="аргументы" 		- Запуск
 # make doc 						- Генерация документации
+# make build 					- Генерация установочного архива
 # make remove 					- Удаление
-#########################################################
+# make pre 						- Пре-коммит проверки
+# make test f="функция без префикса test" - Запуск теста
+#################################################################
 ifeq ($(OS),Windows_NT)
     OPEN := powershell
 else
@@ -23,7 +26,7 @@ build: pep8
 
 # Генерация документации
 doc: pep8
-	@rm -f ./docs/TextAnalysis.rst
+#	@rm -f ./docs/TextAnalysis.rst
 	@sphinx-apidoc -o ./docs/ ./TextAnalysis/
 	@sphinx-build -b html docs docs/_build/html
 	@$(OPEN) ./docs/_build/html/index.html
@@ -35,6 +38,7 @@ install: build
 # Установка в режиме разработчика
 dev:
 	@pip install -e .[dev]
+	@pre-commit install
 
 # Удаление
 remove:

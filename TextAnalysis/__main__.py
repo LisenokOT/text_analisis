@@ -1,14 +1,23 @@
 # pylint: disable=invalid-name
 """
 TextAnalysis - анализатор темы текстов.
+Использование:
+    Аргумент -h             Отобразить это сообщение
+    Аргумент -i <файл>      Обработать текст из файла
+    add <тема>              Добавить темы
+    remove <тема>           Удалить тему
+    list                    Отобразить сохраненные темы
+    text <text>             Обработать введенный текст
+    Аргумент -t <файл>      Использовать свой словарь тем
 
+Полное использование:
 Usage:
-    TextAnalysis (-h|--help|--version)        Вызов подсказки
-    TextAnalysis [-i=<path>]    [-t=<path>]   
-    TextAnalysis add <theme>    [-t=<path>]   Добавить тему
-    TextAnalysis remove <theme> [-t=<path>]   Удалить тему
-    TextAnalysis list           [-t=<path>]   Показать все темы
-    TextAnalysis text [-t=<path>] <text>      Ввести текст
+    TextAnalysis (-h|--help|--version)
+    TextAnalysis [-i=<path>]    [-t=<path>]
+    TextAnalysis add <theme>    [-t=<path>]
+    TextAnalysis remove <theme> [-t=<path>]
+    TextAnalysis list           [-t=<path>]
+    TextAnalysis text [-t=<path>] <text>
 
 Options:
     <theme>                   Название темы

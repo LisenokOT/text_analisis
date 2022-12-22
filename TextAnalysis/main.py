@@ -17,7 +17,7 @@ from hunspell import HunSpell  # pylint: disable=no-name-in-module
 def pkgfile(path) -> str:
     """Получить путь к файлу пакета."""
     tpath = resource_filename('TextAnalysis', '')
-    return os.path.abspath(tpath + '/../' + path)
+    return os.path.abspath(tpath + '/' + path)
 
 
 # Логирование
@@ -26,7 +26,7 @@ LOGFORMAT = "%(asctime)s.%(msecs)03d - [%(levelname)s] - " + \
 log = logging.getLogger('log')
 log.propagate = False
 log.setLevel(logging.INFO)
-logFile = logging.FileHandler(filename=pkgfile('textanalysis.log'))
+logFile = logging.FileHandler(filename=pkgfile('../textanalysis.log'))
 logFormat = logging.Formatter(fmt=LOGFORMAT, datefmt='%d-%m-%Y %H:%M:%S')
 logFile.setFormatter(logFormat)
 log.addHandler(logFile)

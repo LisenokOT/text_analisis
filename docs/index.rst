@@ -1,17 +1,7 @@
 TextAnalysis
 =======================================================
-Автоматически сгенерированная документация TextAnalysis
-
-Ссылка на GitHub_
-
-.. _GitHub: https://github.com/LisenokOT/text_analisis
-
-.. include:: tz.rst
-
 .. toctree::
-   :maxdepth: 3
-   :caption: Структура пакета:
+   :maxdepth: 5
+   :caption: Содержание:
 
-   modules
-
-* :ref:`genindex`
+   main.rst
