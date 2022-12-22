@@ -25,7 +25,7 @@ setuptools.setup(
     long_description_content_type="text/markdown",
     packages=['TextAnalysis'],
     package_data={
-        'FTA': ['hunspell/*', 'demo_data/*']
+        'TextAnalysis': ['hunspell/*', 'demo_data/*']
     },
     entry_points={
         'console_scripts': [
