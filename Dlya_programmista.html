@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Руководство программиста &mdash; документация TextAnalysis 1.0.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TextAnalysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">TextAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id1">Руководство пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id6">Руководство программиста</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id11">Техническое задание</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id18">Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id24">Содержимое пакета</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextAnalysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Руководство программиста</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Dlya_programmista.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>Руководство программиста<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<section id="id2">
+<h2>Как работает программа<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Существует два ввода в программу: ввод темы и ввод текста.</div>
+<div class="line">Ввод темы осуществляется через консоль, после ввода слово проверяется с помощью библиотеки HunSpell на правильность и если слово корректно, то оно добавляется в список тем, и по нему ищутся и добавляются ключевые слова. Ввод текста реализован двумя способами: через консоль и в файле.</div>
+</div>
+<div class="line-block">
+<div class="line">Текст анализируется таким образом:</div>
+<div class="line-block">
+<div class="line">После того, как пользователь отправляет текст, программа преобразует слова текста к стеммам - основам слова.</div>
+<div class="line">После этого, мы сравниваем ключевые слова по теме, с стеммами по тексту.</div>
+<div class="line">Из этого сравнения мы узнаем процент совпадения темы с текстом, тема с максимальным процентом - искомая.</div>
+<div class="line">Кроме этого выводится процент по всем темам.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Если введена новая тема, по ней создается словарь из ключевых слов, ключевые слова формируются следующим образом:</div>
+<div class="line-block">
+<div class="line">Парсится сайт с ключевыми запросами в интернете, из чего создается список, где все преобразуется к стеммам и сохраняются как ключевые слова.</div>
+<div class="line">Тема и список ключевых слов по ней сохраняются для дальнейшей работы программы</div>
+</div>
+</div>
+</section>
+<section id="id3">
+<h2>Какие библиотеки нужны для работы программы<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для программы нужна утилита «HunSpell» (установка приведена в Руководстве пользователя) для стемминга слов и проверки их корректности. А также следующие Python пакеты:</div>
+<div class="line-block">
+<div class="line">- hunspell</div>
+<div class="line">- docopt</div>
+<div class="line">- beautifulsoup4</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2>Сборка установочного архива / документации<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для разработки необходимы утилита «Make» и следующие Python пакеты:</div>
+<div class="line-block">
+<div class="line">- setuptools</div>
+<div class="line">- pre-commit</div>
+<div class="line">- pytest</div>
+<div class="line">- autopep8</div>
+<div class="line">- pydocstyle</div>
+<div class="line">- pylint</div>
+<div class="line">- sphinx</div>
+<div class="line">- sphinx_rtd_theme</div>
+</div>
+<div class="line">Создание установочного архива и документации запускаются командами <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> и <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc</span></code> соответственно.</div>
+</div>
+</section>
+<section id="id5">
+<h2>Тестирование<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для быстрого запуска тестов необходима утилита «Make» и Python пакет «pytest».</div>
+<div class="line">Для запуска теста нужно набрать <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span> <span class="pre">-f=&lt;имя</span> <span class="pre">функции</span> <span class="pre">без</span> <span class="pre">префикса</span> <span class="pre">test&gt;</span></code></div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ИКБО-02-20.</p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

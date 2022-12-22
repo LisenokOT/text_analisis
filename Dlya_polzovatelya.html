@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Руководство пользователя &mdash; документация TextAnalysis 1.0.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TextAnalysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">TextAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id1">Руководство пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id6">Руководство программиста</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id11">Техническое задание</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id18">Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id24">Содержимое пакета</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextAnalysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Руководство пользователя</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/Dlya_polzovatelya.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>Руководство пользователя<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<section id="id2">
+<h2>Как установить программу<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line"><strong>Установка для Windows:</strong></div>
+<div class="line">1) Скачать архив по ссылке и разархивировать его в папку, затем добавить папку bin в PATH</div>
+<div class="line">Ссылка на HunSpell: <a class="reference external" href="https://sourceforge.net/projects/ezwinports/files/hunspell-1.3.2-3-w32-bin.zip/download">Ссылка</a></div>
+</div>
+<div class="line-block">
+<div class="line">В Windows 10 можно добраться до настройки PATH так: Этот компьютер → Свойства → Дополнительные параметры системы → Дополнительно → Переменные среды. Или вызовом «Изменение переменных среды текущего пользователя» в результатах поиска.</div>
+<div class="line">В окошке «Переменные среды» в блоке «Переменные среды пользователя %USERNAME%» находим строку PATH, выделяем кликом, жмем кнопку «Изменить…» и в появившемся окошке нажимаем «Создать» для добавления ещё одного элемента. В самом элементе нужно вписать путь к папке bin</div>
+<div class="line">2) Затем выполнить команду в папке с архивом TextAnalysis: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">TextAnalysis-1.0.0.zip</span></code></div>
+<div class="line"><br /></div>
+<div class="line"><strong>Установка для Linux:</strong></div>
+<div class="line">1) Скачать архив по ссылке и разархивировать его в папку, затем добавить папку bin в PATH</div>
+<div class="line">2) Установить библиотеку libhunspell-dev. Для Ubuntu и других похожих дистрибутивов команда <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libhunspell-dev</span></code></div>
+<div class="line">3) Затем выполнить команду в папке с архивом TextAnalysis: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">TextAnalysis-1.0.0.zip</span></code></div>
+<div class="line"><br /></div>
+<div class="line"><strong>Установка из исходника:</strong></div>
+<div class="line">1) Скачать исходный код и разархивировать его</div>
+<div class="line">2) Затем установка из исходника повторяет инструкцию для конкретной ОС, но последнем шаге команда заменяется на <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">./</span></code></div>
+</div>
+</section>
+<section id="id4">
+<h2>Как использовать программу<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Вызов помощи по использованию программы <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">--help</span></code></div>
+<div class="line">Вывести список тем можно с помощью <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">list</span></code></div>
+<div class="line">Можно ввести свою тему с помощью <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">add</span> <span class="pre">&lt;тема&gt;</span></code>, удалить тему <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">remove</span> <span class="pre">&lt;тема&gt;</span></code></div>
+<div class="line">Можно отправить на обработку введенный текст <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">text</span> <span class="pre">&lt;ввести</span> <span class="pre">текст&gt;</span></code></div>
+<div class="line">Можно отправить на обработку текст из файла <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">-i</span> <span class="pre">&lt;путь</span> <span class="pre">к</span> <span class="pre">файлу&gt;</span></code></div>
+</div>
+</section>
+<section id="id5">
+<h2>Что нужно для работы программы<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для программы нужен интернет, а именно сайт, с которого парсятся данные «Букварикс».</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ИКБО-02-20.</p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

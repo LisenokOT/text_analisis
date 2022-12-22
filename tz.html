@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Техническое задание &mdash; документация TextAnalysis 1.0.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TextAnalysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="main.html">TextAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id1">Руководство пользователя</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id6">Руководство программиста</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id11">Техническое задание</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id18">Документация</a></li>
+<li class="toctree-l1"><a class="reference internal" href="main.html#id24">Содержимое пакета</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextAnalysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">Техническое задание</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/tz.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="id1">
+<h1>Техническое задание<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<section id="id2">
+<h2>Введение<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Появление сети Интернет и бурный рост доступной текстовой информации значительно ускорило развитие научной области, существующей уже много десятков лет и известной как автоматическая обработка текстов и компьютерная лингвистика. В рамках этой области предложено много перспективных идей по автоматической обработке текстов на естественном языке, которые были воплощены во многих прикладных системах, в том числе коммерческих. Сфера приложений компьютерной лингвистики постоянно расширяется, появляются все новые задачи, которые успешно решаются, в том числе с привлечением результатов смежных научных областей.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id3">
+<h2>Основания для разработки<a class="headerlink" href="#id3" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Основанием для разработки данного ПО послужило задание для вузовских дисциплин «Основы интеллектуального анализа данных» и «Технологии разработки программного обеспечения».</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id4">
+<h2>Назначение разработки<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Назначение данного ПО заключается в автоматической рубрикации текстов, полученных как из текстового файла, так и введенный в терминал.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id5">
+<h2>Требование к программе<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для работы данного ПО необходим установленный Python версии 3.7 и выше, а также установленная библиотека Hunspell. Для добавления новых тем необходимо подключение к интернету.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id6">
+<h2>Требования к программной документации<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для создания документации необходимо установить Python модули sphinx и sphinx_rtd_theme, а также утилита Make.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id7">
+<h2>Стадии и этапы разработки<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Этапы проекта в соответствии с каскадной моделью:</div>
+<div class="line"><strong>1.  Формирование требований</strong></div>
+<div class="line">По заданному тексту на русском языке программа должна выдавать ответ - к какой тематике с большей вероятностью следует отнести текст. (например, физика, биология, история, искусство и т. п.). список тематик задается в настройках программы. Выбор классифицирующего алгоритма - на усмотрение разработчика. Выбор входных параметров алгоритма - на усмотрение разработчика (например, по частоте встречаемости слов).</div>
+<div class="line"><strong>2.  Проектирование</strong></div>
+<div class="line">Для проекта необходимо использовать монолитная архитектура, где  все компоненты программы содержатся в одном приложении.</div>
+<div class="line"><strong>3.  Реализация</strong></div>
+<div class="line">Для реализации архитектуры необходимо использовать паттерн Singleton, который обеспечивает создание единственного экземпляра объекта приложения</div>
+<div class="line"><strong>4.  Тестирование</strong></div>
+<div class="line">Тестирование необходимо реализовать с помощью модуля Python – Pytest.</div>
+<div class="line"><strong>5.  Внедрение</strong></div>
+<div class="line">Для внедрения необходимо создавать, устанавливаемый с помощью pip, архив приложения.</div>
+<div class="line"><strong>6.  Эксплуатация</strong></div>
+<div class="line">Для обучения пользователя необходимо реализовать вывод помощи через команду –help.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id8">
+<h1>Документация<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h1>
+<section id="id9">
+<h2>Спецификация<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Система автоматической рубрикации текста – система определяющая к какой тематике с большей вероятностью следует отнести текст. Система хранит темы с массивом ключевых слов для дальнейшей проверки соответствия текста к каждой тематике.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id10">
+<h2>Программа и методика испытаний<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для тестирования ПО используется pytest проверяющий работоспособность всего функционала используя тестовые данные.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id11">
+<h2>Описание программы<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">TextAnalysis – ПО для автоматической рубрикации текста на Python. На вход программы подается текст и на выходе отображается список тем и их процентное соотношение.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id12">
+<h2>Описание применения<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Пользователь может запустить обработку текста указав ссылку на файл с текстом или введя его в консоль.</div>
+<div class="line">Пользователь может добавлять, удалять и отображать темы, сохраненные в словарь тем. Для всех команд есть  возможность указать свой файл словаря тем.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id13">
+<h2>Описание языка<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Python – высокоуровневый язык программирования общего назначения с динамической строгой типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ.</div>
+</div>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ИКБО-02-20.</p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="ru" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>TextAnalysis &mdash; документация TextAnalysis 1.0.0</title>
+      <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
+  <!--[if lt IE 9]>
+    <script src="_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="./" id="documentation_options" src="_static/documentation_options.js"></script>
+        <script src="_static/jquery.js"></script>
+        <script src="_static/underscore.js"></script>
+        <script src="_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="_static/doctools.js"></script>
+        <script src="_static/sphinx_highlight.js"></script>
+        <script src="_static/translations.js"></script>
+    <script src="_static/js/theme.js"></script>
+    <link rel="index" title="Алфавитный указатель" href="genindex.html" />
+    <link rel="search" title="Поиск" href="search.html" />
+    <link rel="prev" title="TextAnalysis" href="index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+            <a href="index.html" class="icon icon-home"> TextAnalysis
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Поиск в документации" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Меню навигации">
+              <p class="caption" role="heading"><span class="caption-text">Содержание:</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">TextAnalysis</a></li>
+<li class="toctree-l1"><a class="reference internal" href="#id1">Руководство пользователя</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id2">Как установить программу</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id4">Как использовать программу</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id5">Что нужно для работы программы</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id6">Руководство программиста</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id7">Как работает программа</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id8">Какие библиотеки нужны для работы программы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id9">Сборка установочного архива / документации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id10">Тестирование</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id11">Техническое задание</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id12">Введение</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id13">Основания для разработки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id14">Назначение разработки</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id15">Требование к программе</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id16">Требования к программной документации</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id17">Стадии и этапы разработки</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id18">Документация</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id19">Спецификация</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id20">Программа и методика испытаний</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id21">Описание программы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id22">Описание применения</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#id23">Описание языка</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#id24">Содержимое пакета</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#id25">Модули программы</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#module-TextAnalysis.main">Модуль main</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#TextAnalysis.main.Analysis"><code class="docutils literal notranslate"><span class="pre">Analysis</span></code></a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.addTheme"><code class="docutils literal notranslate"><span class="pre">Analysis.addTheme()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.checkText"><code class="docutils literal notranslate"><span class="pre">Analysis.checkText()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.checkThemesFile"><code class="docutils literal notranslate"><span class="pre">Analysis.checkThemesFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.countWordsFromText"><code class="docutils literal notranslate"><span class="pre">Analysis.countWordsFromText()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.findCoincidences"><code class="docutils literal notranslate"><span class="pre">Analysis.findCoincidences()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.getThemesFormatted"><code class="docutils literal notranslate"><span class="pre">Analysis.getThemesFormatted()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.keyWordsArrayWorker"><code class="docutils literal notranslate"><span class="pre">Analysis.keyWordsArrayWorker()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.parseKeyWords"><code class="docutils literal notranslate"><span class="pre">Analysis.parseKeyWords()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.parseStringText"><code class="docutils literal notranslate"><span class="pre">Analysis.parseStringText()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.parseTextFile"><code class="docutils literal notranslate"><span class="pre">Analysis.parseTextFile()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.removeTheme"><code class="docutils literal notranslate"><span class="pre">Analysis.removeTheme()</span></code></a></li>
+<li class="toctree-l4"><a class="reference internal" href="#TextAnalysis.main.Analysis.saveThemes"><code class="docutils literal notranslate"><span class="pre">Analysis.saveThemes()</span></code></a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#TextAnalysis.main.Singleton"><code class="docutils literal notranslate"><span class="pre">Singleton</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#TextAnalysis.main.main"><code class="docutils literal notranslate"><span class="pre">main()</span></code></a></li>
+<li class="toctree-l3"><a class="reference internal" href="#TextAnalysis.main.pkgfile"><code class="docutils literal notranslate"><span class="pre">pkgfile()</span></code></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Меню навигации для мобильных устройств" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="index.html">TextAnalysis</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Навигация по страницам">
+  <ul class="wy-breadcrumbs">
+      <li><a href="index.html" class="icon icon-home"></a></li>
+      <li class="breadcrumb-item active">TextAnalysis</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="_sources/main.rst.txt" rel="nofollow"> Просмотреть исходный код страницы</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="textanalysis">
+<h1>TextAnalysis<a class="headerlink" href="#textanalysis" title="Permalink to this heading"></a></h1>
+<p>Автоматически сгенерированная документация TextAnalysis</p>
+<p>Ссылка на <a class="reference external" href="https://github.com/LisenokOT/text_analisis">GitHub</a></p>
+</section>
+<section id="id1">
+<h1>Руководство пользователя<a class="headerlink" href="#id1" title="Permalink to this heading"></a></h1>
+<section id="id2">
+<h2>Как установить программу<a class="headerlink" href="#id2" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line"><strong>Установка для Windows:</strong></div>
+<div class="line">1) Скачать архив по ссылке и разархивировать его в папку, затем добавить папку bin в PATH</div>
+<div class="line">Ссылка на HunSpell: <a class="reference external" href="https://sourceforge.net/projects/ezwinports/files/hunspell-1.3.2-3-w32-bin.zip/download">Ссылка</a></div>
+</div>
+<div class="line-block">
+<div class="line">В Windows 10 можно добраться до настройки PATH так: Этот компьютер → Свойства → Дополнительные параметры системы → Дополнительно → Переменные среды. Или вызовом «Изменение переменных среды текущего пользователя» в результатах поиска.</div>
+<div class="line">В окошке «Переменные среды» в блоке «Переменные среды пользователя %USERNAME%» находим строку PATH, выделяем кликом, жмем кнопку «Изменить…» и в появившемся окошке нажимаем «Создать» для добавления ещё одного элемента. В самом элементе нужно вписать путь к папке bin</div>
+<div class="line">2) Затем выполнить команду в папке с архивом TextAnalysis: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">TextAnalysis-1.0.0.zip</span></code></div>
+<div class="line"><br /></div>
+<div class="line"><strong>Установка для Linux:</strong></div>
+<div class="line">1) Скачать архив по ссылке и разархивировать его в папку, затем добавить папку bin в PATH</div>
+<div class="line">2) Установить библиотеку libhunspell-dev. Для Ubuntu и других похожих дистрибутивов команда <code class="docutils literal notranslate"><span class="pre">sudo</span> <span class="pre">apt-get</span> <span class="pre">install</span> <span class="pre">libhunspell-dev</span></code></div>
+<div class="line">3) Затем выполнить команду в папке с архивом TextAnalysis: <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">TextAnalysis-1.0.0.zip</span></code></div>
+<div class="line"><br /></div>
+<div class="line"><strong>Установка из исходника:</strong></div>
+<div class="line">1) Скачать исходный код и разархивировать его</div>
+<div class="line">2) Затем установка из исходника повторяет инструкцию для конкретной ОС, но последнем шаге команда заменяется на <code class="docutils literal notranslate"><span class="pre">pip</span> <span class="pre">install</span> <span class="pre">./</span></code></div>
+</div>
+</section>
+<section id="id4">
+<h2>Как использовать программу<a class="headerlink" href="#id4" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Вызов помощи по использованию программы <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">--help</span></code></div>
+<div class="line">Вывести список тем можно с помощью <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">list</span></code></div>
+<div class="line">Можно ввести свою тему с помощью <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">add</span> <span class="pre">&lt;тема&gt;</span></code>, удалить тему <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">remove</span> <span class="pre">&lt;тема&gt;</span></code></div>
+<div class="line">Можно отправить на обработку введенный текст <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">text</span> <span class="pre">&lt;ввести</span> <span class="pre">текст&gt;</span></code></div>
+<div class="line">Можно отправить на обработку текст из файла <code class="docutils literal notranslate"><span class="pre">python</span> <span class="pre">-m</span> <span class="pre">TextAnalysis</span> <span class="pre">-i</span> <span class="pre">&lt;путь</span> <span class="pre">к</span> <span class="pre">файлу&gt;</span></code></div>
+</div>
+</section>
+<section id="id5">
+<h2>Что нужно для работы программы<a class="headerlink" href="#id5" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для программы нужен интернет, а именно сайт, с которого парсятся данные «Букварикс».</div>
+</div>
+</section>
+</section>
+<section id="id6">
+<h1>Руководство программиста<a class="headerlink" href="#id6" title="Permalink to this heading"></a></h1>
+<section id="id7">
+<h2>Как работает программа<a class="headerlink" href="#id7" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Существует два ввода в программу: ввод темы и ввод текста.</div>
+<div class="line">Ввод темы осуществляется через консоль, после ввода слово проверяется с помощью библиотеки HunSpell на правильность и если слово корректно, то оно добавляется в список тем, и по нему ищутся и добавляются ключевые слова. Ввод текста реализован двумя способами: через консоль и в файле.</div>
+</div>
+<div class="line-block">
+<div class="line">Текст анализируется таким образом:</div>
+<div class="line-block">
+<div class="line">После того, как пользователь отправляет текст, программа преобразует слова текста к стеммам - основам слова.</div>
+<div class="line">После этого, мы сравниваем ключевые слова по теме, с стеммами по тексту.</div>
+<div class="line">Из этого сравнения мы узнаем процент совпадения темы с текстом, тема с максимальным процентом - искомая.</div>
+<div class="line">Кроме этого выводится процент по всем темам.</div>
+</div>
+</div>
+<div class="line-block">
+<div class="line">Если введена новая тема, по ней создается словарь из ключевых слов, ключевые слова формируются следующим образом:</div>
+<div class="line-block">
+<div class="line">Парсится сайт с ключевыми запросами в интернете, из чего создается список, где все преобразуется к стеммам и сохраняются как ключевые слова.</div>
+<div class="line">Тема и список ключевых слов по ней сохраняются для дальнейшей работы программы</div>
+</div>
+</div>
+</section>
+<section id="id8">
+<h2>Какие библиотеки нужны для работы программы<a class="headerlink" href="#id8" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для программы нужна утилита «HunSpell» (установка приведена в Руководстве пользователя) для стемминга слов и проверки их корректности. А также следующие Python пакеты:</div>
+<div class="line-block">
+<div class="line">- hunspell</div>
+<div class="line">- docopt</div>
+<div class="line">- beautifulsoup4</div>
+</div>
+</div>
+</section>
+<section id="id9">
+<h2>Сборка установочного архива / документации<a class="headerlink" href="#id9" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для разработки необходимы утилита «Make» и следующие Python пакеты:</div>
+<div class="line-block">
+<div class="line">- setuptools</div>
+<div class="line">- pre-commit</div>
+<div class="line">- pytest</div>
+<div class="line">- autopep8</div>
+<div class="line">- pydocstyle</div>
+<div class="line">- pylint</div>
+<div class="line">- sphinx</div>
+<div class="line">- sphinx_rtd_theme</div>
+</div>
+<div class="line">Создание установочного архива и документации запускаются командами <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">build</span></code> и <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">doc</span></code> соответственно.</div>
+</div>
+</section>
+<section id="id10">
+<h2>Тестирование<a class="headerlink" href="#id10" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для быстрого запуска тестов необходима утилита «Make» и Python пакет «pytest».</div>
+<div class="line">Для запуска теста нужно набрать <code class="docutils literal notranslate"><span class="pre">make</span> <span class="pre">test</span> <span class="pre">-f=&lt;имя</span> <span class="pre">функции</span> <span class="pre">без</span> <span class="pre">префикса</span> <span class="pre">test&gt;</span></code></div>
+</div>
+</section>
+</section>
+<section id="id11">
+<h1>Техническое задание<a class="headerlink" href="#id11" title="Permalink to this heading"></a></h1>
+<section id="id12">
+<h2>Введение<a class="headerlink" href="#id12" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Появление сети Интернет и бурный рост доступной текстовой информации значительно ускорило развитие научной области, существующей уже много десятков лет и известной как автоматическая обработка текстов и компьютерная лингвистика. В рамках этой области предложено много перспективных идей по автоматической обработке текстов на естественном языке, которые были воплощены во многих прикладных системах, в том числе коммерческих. Сфера приложений компьютерной лингвистики постоянно расширяется, появляются все новые задачи, которые успешно решаются, в том числе с привлечением результатов смежных научных областей.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id13">
+<h2>Основания для разработки<a class="headerlink" href="#id13" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Основанием для разработки данного ПО послужило задание для вузовских дисциплин «Основы интеллектуального анализа данных» и «Технологии разработки программного обеспечения».</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id14">
+<h2>Назначение разработки<a class="headerlink" href="#id14" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Назначение данного ПО заключается в автоматической рубрикации текстов, полученных как из текстового файла, так и введенный в терминал.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id15">
+<h2>Требование к программе<a class="headerlink" href="#id15" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для работы данного ПО необходим установленный Python версии 3.7 и выше, а также установленная библиотека Hunspell. Для добавления новых тем необходимо подключение к интернету.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id16">
+<h2>Требования к программной документации<a class="headerlink" href="#id16" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для создания документации необходимо установить Python модули sphinx и sphinx_rtd_theme, а также утилита Make.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id17">
+<h2>Стадии и этапы разработки<a class="headerlink" href="#id17" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Этапы проекта в соответствии с каскадной моделью:</div>
+<div class="line"><strong>1.  Формирование требований</strong></div>
+<div class="line">По заданному тексту на русском языке программа должна выдавать ответ - к какой тематике с большей вероятностью следует отнести текст. (например, физика, биология, история, искусство и т. п.). список тематик задается в настройках программы. Выбор классифицирующего алгоритма - на усмотрение разработчика. Выбор входных параметров алгоритма - на усмотрение разработчика (например, по частоте встречаемости слов).</div>
+<div class="line"><strong>2.  Проектирование</strong></div>
+<div class="line">Для проекта необходимо использовать монолитная архитектура, где  все компоненты программы содержатся в одном приложении.</div>
+<div class="line"><strong>3.  Реализация</strong></div>
+<div class="line">Для реализации архитектуры необходимо использовать паттерн Singleton, который обеспечивает создание единственного экземпляра объекта приложения</div>
+<div class="line"><strong>4.  Тестирование</strong></div>
+<div class="line">Тестирование необходимо реализовать с помощью модуля Python – Pytest.</div>
+<div class="line"><strong>5.  Внедрение</strong></div>
+<div class="line">Для внедрения необходимо создавать, устанавливаемый с помощью pip, архив приложения.</div>
+<div class="line"><strong>6.  Эксплуатация</strong></div>
+<div class="line">Для обучения пользователя необходимо реализовать вывод помощи через команду –help.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+</section>
+<section id="id18">
+<h1>Документация<a class="headerlink" href="#id18" title="Permalink to this heading"></a></h1>
+<section id="id19">
+<h2>Спецификация<a class="headerlink" href="#id19" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Система автоматической рубрикации текста – система определяющая к какой тематике с большей вероятностью следует отнести текст. Система хранит темы с массивом ключевых слов для дальнейшей проверки соответствия текста к каждой тематике.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id20">
+<h2>Программа и методика испытаний<a class="headerlink" href="#id20" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Для тестирования ПО используется pytest проверяющий работоспособность всего функционала используя тестовые данные.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id21">
+<h2>Описание программы<a class="headerlink" href="#id21" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">TextAnalysis – ПО для автоматической рубрикации текста на Python. На вход программы подается текст и на выходе отображается список тем и их процентное соотношение.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id22">
+<h2>Описание применения<a class="headerlink" href="#id22" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Пользователь может запустить обработку текста указав ссылку на файл с текстом или введя его в консоль.</div>
+<div class="line">Пользователь может добавлять, удалять и отображать темы, сохраненные в словарь тем. Для всех команд есть  возможность указать свой файл словаря тем.</div>
+<div class="line"><br /></div>
+</div>
+</section>
+<section id="id23">
+<h2>Описание языка<a class="headerlink" href="#id23" title="Permalink to this heading"></a></h2>
+<div class="line-block">
+<div class="line">Python – высокоуровневый язык программирования общего назначения с динамической строгой типизацией и автоматическим управлением памятью, ориентированный на повышение производительности разработчика, читаемости кода и его качества, а также на обеспечение переносимости написанных на нём программ.</div>
+</div>
+</section>
+</section>
+<section id="id24">
+<h1>Содержимое пакета<a class="headerlink" href="#id24" title="Permalink to this heading"></a></h1>
+<section id="id25">
+<h2>Модули программы<a class="headerlink" href="#id25" title="Permalink to this heading"></a></h2>
+</section>
+<section id="module-TextAnalysis.main">
+<span id="main"></span><h2>Модуль main<a class="headerlink" href="#module-TextAnalysis.main" title="Permalink to this heading"></a></h2>
+<p>Основной файл программы.</p>
+<dl class="py class">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextAnalysis.main.</span></span><span class="sig-name descname"><span class="pre">Analysis</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="o"><span class="pre">*</span></span><span class="n"><span class="pre">args</span></span></em>, <em class="sig-param"><span class="o"><span class="pre">**</span></span><span class="n"><span class="pre">kwargs</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">object</span></code></p>
+<p>Объект приложения.</p>
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.addTheme">
+<span class="sig-name descname"><span class="pre">addTheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.addTheme" title="Ссылка на это определение"></a></dt>
+<dd><p>Добавление темы в программу.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.checkText">
+<span class="sig-name descname"><span class="pre">checkText</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.checkText" title="Ссылка на это определение"></a></dt>
+<dd><p>Проверка текста.</p>
+<p>Запуск алгоритма, а затем вывод информации к какой теме
+относится текст и с какой вероятностью.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.checkThemesFile">
+<span class="sig-name descname"><span class="pre">checkThemesFile</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.checkThemesFile" title="Ссылка на это определение"></a></dt>
+<dd><p>Проверяем файл для хранения тем.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.countWordsFromText">
+<span class="sig-name descname"><span class="pre">countWordsFromText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">words</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.countWordsFromText" title="Ссылка на это определение"></a></dt>
+<dd><p>Подсчет слов в тексте и конвертация слов в стемы.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.findCoincidences">
+<span class="sig-name descname"><span class="pre">findCoincidences</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.findCoincidences" title="Ссылка на это определение"></a></dt>
+<dd><p>Поиск совпадений текста с ключевыми словами тем.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.getThemesFormatted">
+<span class="sig-name descname"><span class="pre">getThemesFormatted</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.getThemesFormatted" title="Ссылка на это определение"></a></dt>
+<dd><p>Красивый вывод всех тем.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.keyWordsArrayWorker">
+<span class="sig-name descname"><span class="pre">keyWordsArrayWorker</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">array</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.keyWordsArrayWorker" title="Ссылка на это определение"></a></dt>
+<dd><p>Работа со списком ключевых слов.</p>
+<p>Добавляет стемы, убирает повторы и сортирует список.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.parseKeyWords">
+<span class="sig-name descname"><span class="pre">parseKeyWords</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.parseKeyWords" title="Ссылка на это определение"></a></dt>
+<dd><p>Поиск ключевых слов по теме в интернете.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.parseStringText">
+<span class="sig-name descname"><span class="pre">parseStringText</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">text</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.parseStringText" title="Ссылка на это определение"></a></dt>
+<dd><p>Разделение текста на слова и сохранение частоты появления.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.parseTextFile">
+<span class="sig-name descname"><span class="pre">parseTextFile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">inputFile</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.parseTextFile" title="Ссылка на это определение"></a></dt>
+<dd><p>Получение текста из файла.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.removeTheme">
+<span class="sig-name descname"><span class="pre">removeTheme</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">theme</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.removeTheme" title="Ссылка на это определение"></a></dt>
+<dd><p>Удаление темы из программы.</p>
+</dd></dl>
+
+<dl class="py method">
+<dt class="sig sig-object py" id="TextAnalysis.main.Analysis.saveThemes">
+<span class="sig-name descname"><span class="pre">saveThemes</span></span><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.Analysis.saveThemes" title="Ссылка на это определение"></a></dt>
+<dd><p>Сохранить данные из оперативной памяти в файл тем в конце работы.</p>
+</dd></dl>
+
+</dd></dl>
+
+<dl class="py class">
+<dt class="sig sig-object py" id="TextAnalysis.main.Singleton">
+<em class="property"><span class="pre">class</span><span class="w"> </span></em><span class="sig-prename descclassname"><span class="pre">TextAnalysis.main.</span></span><span class="sig-name descname"><span class="pre">Singleton</span></span><a class="headerlink" href="#TextAnalysis.main.Singleton" title="Ссылка на это определение"></a></dt>
+<dd><p>Базовые классы: <code class="xref py py-class docutils literal notranslate"><span class="pre">type</span></code></p>
+<p>Метакласс обеспечивающий создание единственного экземпляра объекта.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="TextAnalysis.main.main">
+<span class="sig-prename descclassname"><span class="pre">TextAnalysis.main.</span></span><span class="sig-name descname"><span class="pre">main</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">args</span></span></em><span class="sig-paren">)</span><a class="headerlink" href="#TextAnalysis.main.main" title="Ссылка на это определение"></a></dt>
+<dd><p>Основа приложения.</p>
+<p>Определяет режим работы.</p>
+</dd></dl>
+
+<dl class="py function">
+<dt class="sig sig-object py" id="TextAnalysis.main.pkgfile">
+<span class="sig-prename descclassname"><span class="pre">TextAnalysis.main.</span></span><span class="sig-name descname"><span class="pre">pkgfile</span></span><span class="sig-paren">(</span><em class="sig-param"><span class="n"><span class="pre">path</span></span></em><span class="sig-paren">)</span> <span class="sig-return"><span class="sig-return-icon">&#x2192;</span> <span class="sig-return-typehint"><span class="pre">str</span></span></span><a class="headerlink" href="#TextAnalysis.main.pkgfile" title="Ссылка на это определение"></a></dt>
+<dd><p>Получить путь к файлу пакета.</p>
+</dd></dl>
+
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Нижняя область">
+        <a href="index.html" class="btn btn-neutral float-left" title="TextAnalysis" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Предыдущая</a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2022, ИКБО-02-20.</p>
+  </div>
+
+  Собрано при помощи <a href="https://www.sphinx-doc.org/">Sphinx</a> с использованием
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">темы,</a>
+    предоставленной <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
